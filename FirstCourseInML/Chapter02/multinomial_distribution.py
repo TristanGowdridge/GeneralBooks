@@ -11,24 +11,22 @@ def multinomial(x, q, N):
     extends the idea of a binomial to vectors
     """
 
+    numerator = math.factorial(N)
+    denominator = math.prod(math.factorial(xi) for xi in x)
+    probability_product = math.prod(qi ** xi for qi, xi in zip(q, x))
+
+    return (numerator / denominator) * probability_product
+
+
 
 def main():
-    REPETITIONS = 50
-    PROBABILITY = 0.7
+    a, b, c = 1, 2, 3
+    players = np.array([a, b, c])
+    q1, q2, q3 =  0.2, 0.3, 0.5
+    probabilities = np.array([q1, q2, q3])
 
-    REPETITIONS += 1
-    
-    x = np.arange(REPETITIONS)
-    y = np.zeros(shape=REPETITIONS)
-    for i in x:
-        y[i] = multinomial(i, PROBABILITY, REPETITIONS)
-    
-    fig = plt.figure()
-    ax = fig.gca()
-    ax.bar(x, y)
-    ax.set_xlabel("$x$")
-    ax.set_ylabel("$p(x)$")
-    plt.show()
+    p = multinomial(players, probabilities, 6)
+    print(p)
 
 
 if __name__ == "__main__":
